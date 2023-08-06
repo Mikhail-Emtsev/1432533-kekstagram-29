@@ -7,7 +7,7 @@ const getRandomInteger = (a, b) => {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-// Function for generating a random non-repeating comment ID:
+// Функция генерации неповторяющихся ID:
 const createIdGenerator = () => {
   let lastGeneratedId = 0;
 
@@ -29,4 +29,27 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export {getRandomInteger, getRandomArrayElement, createIdGenerator, debounce};
+// Функция случайного перемешивания массива
+const randomArraySort = (data) => {
+  for (let i = 0; i < data.length - 1; i++) {
+    const randomIndex = getRandomInteger(0, data.length - 1);
+    const buffer = data[i];
+    data[i] = data[randomIndex];
+    data[randomIndex] = buffer;
+  }
+  return data;
+};
+
+// Функция-колбэк случайной сортировки фото
+const sortRandom = (data, count) => randomArraySort(data).slice(0, count);
+
+// Функция-колбэк сортировки фото по количеству комментариев по убыванию
+const sortComments = (data) => data.sort((a, b) => b.comments.length - a.comments.length);
+
+// Функция удаления элемента
+const removeElement = (element) => {
+  element.remove();
+};
+
+
+export {getRandomInteger, getRandomArrayElement, createIdGenerator, debounce, sortRandom, sortComments, removeElement};

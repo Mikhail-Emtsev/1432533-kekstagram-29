@@ -1,19 +1,19 @@
 import {onDocumentEscKeydown} from './formupload.js';
 
-const successTemplate = document.querySelector('#success').content.querySelector('.success');
-const successPopup = successTemplate.cloneNode(true);
-const successInner = successPopup.querySelector('.success__inner');
-const successTitle = successPopup.querySelector('.success__title');
-const successButton = successPopup.querySelector('.success__button');
-const errorTemplate = document.querySelector('#error').content.querySelector('.error');
-const errorPopup = errorTemplate.cloneNode(true);
-const errorButton = errorPopup.querySelector('.error__button');
-const errorInner = errorPopup.querySelector('.error__inner');
-const errorTitle = errorPopup.querySelector('.error__title');
+const successTemplateElement = document.querySelector('#success').content.querySelector('.success');
+const successPopupElement = successTemplateElement.cloneNode(true);
+const successInnerElement = successPopupElement.querySelector('.success__inner');
+const successTitleElement = successPopupElement.querySelector('.success__title');
+const successButtonElement = successPopupElement.querySelector('.success__button');
+const errorTemplateElement = document.querySelector('#error').content.querySelector('.error');
+const errorPopupElement = errorTemplateElement.cloneNode(true);
+const errorButtonElement = errorPopupElement.querySelector('.error__button');
+const errorInnerElement = errorPopupElement.querySelector('.error__inner');
+const errorTitleElement = errorPopupElement.querySelector('.error__title');
 
 
 const closeSuccessPopup = () => {
-  successPopup.remove();
+  successPopupElement.remove();
   document.removeEventListener('keydown', onSuccessKeydown);
   document.removeEventListener('click', onSuccessClick);
   document.removeEventListener('keydown', onDocumentEscKeydown);
@@ -21,8 +21,8 @@ const closeSuccessPopup = () => {
 
 
 const showSuccessPopup = () => {
-  document.body.append(successPopup);
-  successButton.addEventListener('click', () => {
+  document.body.append(successPopupElement);
+  successButtonElement.addEventListener('click', () => {
     closeSuccessPopup();
   });
   document.addEventListener('keydown', onSuccessKeydown);
@@ -39,14 +39,14 @@ function onSuccessKeydown (evt) {
 
 
 function onSuccessClick (evt) {
-  if (evt.target !== successInner && evt.target !== successTitle) {
+  if (evt.target !== successInnerElement && evt.target !== successTitleElement) {
     closeSuccessPopup();
   }
 }
 
 
 const closeErrorPopup = () => {
-  errorPopup.remove();
+  errorPopupElement.remove();
   document.removeEventListener('keydown', onErrorKeydown);
   document.removeEventListener('click', onErrorClick);
   document.addEventListener('keydown', onDocumentEscKeydown);
@@ -54,8 +54,8 @@ const closeErrorPopup = () => {
 
 
 const showErrorPopup = () => {
-  document.body.append(errorPopup);
-  errorButton.addEventListener('click', () => {
+  document.body.append(errorPopupElement);
+  errorButtonElement.addEventListener('click', () => {
     closeErrorPopup();
   });
   document.addEventListener('keydown', onErrorKeydown);
@@ -73,7 +73,7 @@ function onErrorKeydown (evt) {
 
 
 function onErrorClick (evt) {
-  if (evt.target !== errorInner && evt.target !== errorTitle) {
+  if (evt.target !== errorInnerElement && evt.target !== errorTitleElement) {
     closeErrorPopup();
   }
 }

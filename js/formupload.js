@@ -12,17 +12,17 @@ const SUBMIT_BUTTON_TEXT_SENDING = 'Публикую...';
 const SUBMIT_BUTTON_TEXT = 'Опубликовать';
 
 
-const body = document.querySelector('body');
-const uploadOverlay = document.querySelector('.img-upload__overlay');
-const uploadForm = document.querySelector('.img-upload__form');
-const fileField = document.querySelector('#upload-file');
-const hashtagField = document.querySelector('.text__hashtags');
-const descriptionField = document.querySelector('.text__description');
-const cancelCross = document.querySelector('#upload-cancel');
-const buttonSubmit = document.querySelector('#upload-submit');
+const bodyElement = document.querySelector('body');
+const uploadOverlayElement = document.querySelector('.img-upload__overlay');
+const uploadFormElement = document.querySelector('.img-upload__form');
+const fileFieldElement = document.querySelector('#upload-file');
+const hashtagFieldElement = document.querySelector('.text__hashtags');
+const descriptionFieldElement = document.querySelector('.text__description');
+const cancelCrossElement = document.querySelector('#upload-cancel');
+const buttonSubmitElement = document.querySelector('#upload-submit');
 
 
-const pristine = new Pristine(uploadForm, {
+const pristine = new Pristine(uploadFormElement, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextClass: 'img-upload__error'
@@ -30,29 +30,29 @@ const pristine = new Pristine(uploadForm, {
 
 
 const showModal = () => {
-  uploadOverlay.classList.remove('hidden');
-  body.classList.add('modal-open');
+  uploadOverlayElement.classList.remove('hidden');
+  bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentEscKeydown);
-  hashtagField.addEventListener('keyup', onTextKeyUp);
-  descriptionField.addEventListener('keyup', onTextKeyUp);
+  hashtagFieldElement.addEventListener('keyup', onTextKeyUp);
+  descriptionFieldElement.addEventListener('keyup', onTextKeyUp);
 };
 
 
 const hideModal = () => {
-  uploadForm.reset();
+  uploadFormElement.reset();
   resetScale();
   resetEffect();
   pristine.reset();
-  uploadOverlay.classList.add('hidden');
-  body.classList.remove('modal-open');
+  uploadOverlayElement.classList.add('hidden');
+  bodyElement.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentEscKeydown);
-  hashtagField.removeEventListener('keyup', onTextKeyUp);
-  descriptionField.removeEventListener('keyup', onTextKeyUp);
+  hashtagFieldElement.removeEventListener('keyup', onTextKeyUp);
+  descriptionFieldElement.removeEventListener('keyup', onTextKeyUp);
 };
 
 
 const blockСonditionOnFocus = () =>
-  document.activeElement === hashtagField || document.activeElement === descriptionField;
+  document.activeElement === hashtagFieldElement || document.activeElement === descriptionFieldElement;
 
 
 function onDocumentEscKeydown(evt) {
@@ -87,48 +87,48 @@ const hasUniqueTags = (value) => {
 
 
 pristine.addValidator(
-  hashtagField,
+  hashtagFieldElement,
   hasUniqueTags,
   UNUNIQUE_TAGS_ERROR_TEXT, 1, true
 );
 
 
 pristine.addValidator(
-  hashtagField,
+  hashtagFieldElement,
   isValidTag,
   INVALID_CONTENT_ERROR_TEXT, 2, true
 );
 
 
 pristine.addValidator(
-  hashtagField,
+  hashtagFieldElement,
   hasValidCount,
   INVALID_COUNT_ERROR_TEXT, 3, true
 );
 
 
 function onTextKeyUp() {
-  if (hasUniqueTags(hashtagField.value) && isValidTag(hashtagField.value) && hasValidCount(hashtagField.value) && descriptionField.value.length < 141) {
-    buttonSubmit.disabled = false;
+  if (hasUniqueTags(hashtagFieldElement.value) && isValidTag(hashtagFieldElement.value) && hasValidCount(hashtagFieldElement.value) && descriptionFieldElement.value.length < 141) {
+    buttonSubmitElement.disabled = false;
   } else {
-    buttonSubmit.disabled = true;
+    buttonSubmitElement.disabled = true;
   }
 }
 
 
 const blockSubmitButton = () => {
-  buttonSubmit.disabled = true;
-  buttonSubmit.textContent = SUBMIT_BUTTON_TEXT_SENDING;
+  buttonSubmitElement.disabled = true;
+  buttonSubmitElement.textContent = SUBMIT_BUTTON_TEXT_SENDING;
 };
 
 
 const unblockSubmitButton = () => {
-  buttonSubmit.disabled = false;
-  buttonSubmit.textContent = SUBMIT_BUTTON_TEXT;
+  buttonSubmitElement.disabled = false;
+  buttonSubmitElement.textContent = SUBMIT_BUTTON_TEXT;
 };
 
 const submitUserPhoto = () => {
-  uploadForm.addEventListener('submit', (evt) => {
+  uploadFormElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
     if (pristine.validate()) {
       blockSubmitButton();
@@ -145,7 +145,7 @@ const submitUserPhoto = () => {
   });
 };
 
-fileField.addEventListener('change', onOpenFileChange);
-cancelCross.addEventListener('click', onCancelCrossClick);
+fileFieldElement.addEventListener('change', onOpenFileChange);
+cancelCrossElement.addEventListener('click', onCancelCrossClick);
 
 export {submitUserPhoto, onDocumentEscKeydown};
